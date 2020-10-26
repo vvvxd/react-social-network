@@ -14,10 +14,10 @@ const Dialogs = (props) => {
     }
 
     const person = props.dialogsPage.dialogsData
-        .map(dialog => <DialogItem name={dialog.name} id={dialog.id}/>);
+        .map(dialog => <DialogItem name={dialog.name} id={dialog.id} key={dialog.id}/>);
 
     const message = props.dialogsPage.messageData
-        .map(message => <Message message={message.message} id={message.id}/>);
+        .map(message => <Message message={message.message} id={message.id} key={message.id}/>);
 
     return (
         <div className={s.dialogs}>
