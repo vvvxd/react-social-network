@@ -1,47 +1,57 @@
-import React from "react";
+import React from 'react';
+
 import styles from './Users.module.css';
+import userPhoto from '../../assets/imeges/em_avatar_default-user.png';
+import { NavLink } from 'react-router-dom';
 
-const Users = (props) => {
-    if (props.users.length===0) {
-        props.setUsers([
-            {id: '1',photoUrl:'https://static.kinoafisha.info/k/articles/776/upload/articles/454077430623.jpg', followed: false, fullName: 'Dima', status: '5xdd', location: {city: 'Minsk', country: 'Belarus'}},
-            {id: '2',photoUrl:'https://static.kinoafisha.info/k/articles/776/upload/articles/454077430623.jpg', followed: true, fullName: 'ASD', status: '5xdd', location: {city: 'Moscov', country: 'Belarus'}},
-            {id: '3',photoUrl:'https://static.kinoafisha.info/k/articles/776/upload/articles/454077430623.jpg', followed: false, fullName: 'cAHA', status: '5xdd', location: {city: 'Vologda', country: 'Belarus'}},
-            {id: '4',photoUrl:'https://static.kinoafisha.info/k/articles/776/upload/articles/454077430623.jpg', followed: false, fullName: 'VALENTIN', status: '5xdd', location: {city: 'Minsk', country: 'Belarus'}},
-            {id: '5',photoUrl:'https://static.kinoafisha.info/k/articles/776/upload/articles/454077430623.jpg', followed: true, fullName: 'Dima', status: '5xdd', location: {city: 'Minsk', country: 'Belarus'}},
-        ]);
-    }
-
-
-    return (
-        props.users.map(user =>
-            <div key={user.id}>
-                <span>
-                    <div>
-                        <img src={user.photoUrl} alt="" className={styles.photo}/>
-                    </div>
-                    <div>
-                        {
-                            user.followed
-                                ? <button onClick={()=>props.unfollow(user.id)}
-                                >Unfollow</button>
-                                :<button onClick={()=>props.follow(user.id)}>follow</button>
-                        }
-
-                    </div>
-                </span>
-                <span>
-                    <span>
-                        <div>{user.fullName} </div><div> {user.status}</div>
-                    </span>
-                    <span>
-                        <div>{user.location.country} </div>
-                        <div>{user.location.city} </div>
-                    </span>
-                </span>
-            </div>
-        )
-    )
-
+function Users({ pagesCount, onPageChanget, currentPage, users, follow, unfollow }) {
+  return (
+    <div>
+      <div>
+        {Array(pagesCount)
+          .fill(0)
+          .map((_, id) => ++id)
+          .map((item, id) => (
+            <span
+              key={id}
+              onClick={() => onPageChanget(item)}
+              className={`${styles.pagination} ${currentPage === item && styles.active}`}>
+              {item}{' '}
+            </span>
+          ))}
+      </div>
+      {users &&
+        users.map((user) => (
+          <div key={user.id}>
+            <span>
+              <div>
+                <NavLink to={`/profile/${user.id}`}>
+                  {' '}
+                  <img src={userPhoto} alt="" className={styles.photo} />
+                </NavLink>
+              </div>
+              <div>
+                {user.followed ? (
+                  <button onClick={() => unfollow(user.id)}>Unfollow</button>
+                ) : (
+                  <button onClick={() => follow(user.id)}>follow</button>
+                )}
+              </div>
+            </span>
+            <span>
+              <span>
+                <div>{user.name} </div>
+                <div> {user.status}</div>
+              </span>
+              <span>
+                <div>{'user.location.country'} </div>
+                <div>{'user.location.city'} </div>
+              </span>
+            </span>
+          </div>
+        ))}
+    </div>
+  );
 }
+
 export default Users;
