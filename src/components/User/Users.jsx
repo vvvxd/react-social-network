@@ -4,7 +4,15 @@ import styles from './Users.module.css';
 import userPhoto from '../../assets/imeges/em_avatar_default-user.png';
 import { NavLink } from 'react-router-dom';
 
-function Users({ pagesCount, onPageChanget, currentPage, users, follow, unfollow }) {
+function Users({
+  pagesCount,
+  onPageChanget,
+  currentPage,
+  users,
+  unFollowUser,
+  followingInProgress,
+  followUser,
+}) {
   return (
     <div>
       <div>
@@ -32,9 +40,21 @@ function Users({ pagesCount, onPageChanget, currentPage, users, follow, unfollow
               </div>
               <div>
                 {user.followed ? (
-                  <button onClick={() => unfollow(user.id)}>Unfollow</button>
+                  <button
+                    disabled={followingInProgress.some((id) => id === user.id)}
+                    onClick={() => {
+                      unFollowUser(user.id);
+                    }}>
+                    Unfollow
+                  </button>
                 ) : (
-                  <button onClick={() => follow(user.id)}>follow</button>
+                  <button
+                    disabled={followingInProgress.some((id) => id === user.id)}
+                    onClick={() => {
+                      followUser(user.id);
+                    }}>
+                    follow
+                  </button>
                 )}
               </div>
             </span>
