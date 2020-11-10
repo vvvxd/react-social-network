@@ -1,16 +1,21 @@
-import {combineReducers, createStore} from "redux";
-import profileReducer from "./profile-reducer";
-import dialogsReducer from "./dialogs-reducer";
-import sidebarReducer from "./sidebar-reducer";
-import userReducer from "./user-reduser";
+import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
+import profileReducer from './profile-reducer';
+import dialogsReducer from './dialogs-reducer';
+import sidebarReducer from './sidebar-reducer';
+import userReducer from './user-reduser';
+import authReducer from './auth-reduser';
+import thunk from 'redux-thunk';
 
 let reducers = combineReducers({
-    profilePage:profileReducer,
-    messagesPage:dialogsReducer,
-    sidebar:sidebarReducer,
-    userPage:userReducer,
+  profilePage: profileReducer,
+  messagesPage: dialogsReducer,
+  sidebar: sidebarReducer,
+  userPage: userReducer,
+  auth: authReducer,
 });
 
-const store = createStore(reducers,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 
 export default store;

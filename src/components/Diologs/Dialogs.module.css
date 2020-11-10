@@ -5,7 +5,7 @@
 
 }
 
-.dialogsItems  .active {
+.dialogsItems .active {
     color: gold;
 }
 
@@ -27,6 +27,7 @@
 .messages .message {
 
 }
+
 .textarea {
     margin-top: 10px;
 }
