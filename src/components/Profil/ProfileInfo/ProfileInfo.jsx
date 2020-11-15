@@ -1,6 +1,7 @@
-import React from "react";
-import Preloader from "../../common/Preloader/Preloader";
-import s from "./ProfileInfo.module.css";
+import React from 'react';
+import Preloader from '../../common/Preloader/Preloader';
+import s from './ProfileInfo.module.css';
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -8,15 +9,10 @@ const ProfileInfo = (props) => {
   }
   return (
     <div>
-      <div>
-        <img
-          src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg"
-          alt=""
-        />
-      </div>
+      <div></div>
       <div className={s.descriptionBlock}>
         <img className={s.smallImg} src={props.profile.photos.large} alt="" />
-        <div>disc</div>
+        <ProfileStatus updateStatus={props.updateStatus} status={props.status}/>
       </div>
     </div>
   );
