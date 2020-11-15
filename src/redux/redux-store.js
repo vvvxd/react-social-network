@@ -4,7 +4,9 @@ import dialogsReducer from './dialogs-reducer';
 import sidebarReducer from './sidebar-reducer';
 import userReducer from './user-reduser';
 import authReducer from './auth-reduser';
+import appReducer from './app-reduser'
 import thunk from 'redux-thunk';
+import { reducer as formReducer } from 'redux-form'
 
 let reducers = combineReducers({
   profilePage: profileReducer,
@@ -12,6 +14,9 @@ let reducers = combineReducers({
   sidebar: sidebarReducer,
   userPage: userReducer,
   auth: authReducer,
+  app:appReducer,
+  form:formReducer,
+
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
