@@ -2,6 +2,14 @@ import { connect } from 'react-redux';
 import { getUsers, unFollowUser, setCurrentPage, followUser } from '../../redux/user-reduser';
 import React from 'react';
 
+import {
+  getAllUsers,
+  getPageSize,
+  getTotalUserCount,
+  getCurrentPage,
+  getIsFetching,
+  getFollowingInProgress,
+} from '../../redux/user-selectors';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
 import { compose } from 'redux';
@@ -39,14 +47,25 @@ class UsersApi extends React.Component {
   }
 }
 
+// let mapStateToProps = (state) => {
+//   return {
+//     users: state.userPage.users,
+//     pageSize: state.userPage.pageSize,
+//     totalUserCount: state.userPage.totalUserCount,
+//     currentPage: state.userPage.currentPage,
+//     isFetching: state.userPage.isFetching,
+//     followingInProgress: state.userPage.followingInProgress,
+//   };
+// };
+
 let mapStateToProps = (state) => {
   return {
-    users: state.userPage.users,
-    pageSize: state.userPage.pageSize,
-    totalUserCount: state.userPage.totalUserCount,
-    currentPage: state.userPage.currentPage,
-    isFetching: state.userPage.isFetching,
-    followingInProgress: state.userPage.followingInProgress,
+    users: getAllUsers(state),
+    pageSize: getPageSize(state),
+    totalUserCount: getTotalUserCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress: getFollowingInProgress(state),
   };
 };
 
@@ -59,5 +78,5 @@ export default compose(
     getUsers,
     unFollowUser,
     followUser,
-  })
+  }),
 )(UsersContainer);
